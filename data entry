@@ -14,10 +14,10 @@ CREATE TABLE participants (
 	PRIMARY KEY (participant_id),
     participant_id SMALLINT UNSIGNED AUTO_INCREMENT,
     participant_dob DATE,
-    sex VARCHAR(8),
+    sex VARCHAR(6),
     age TINYINT UNSIGNED,
-    education VARCHAR(100),
-    drug_name VARCHAR(225),
+    education VARCHAR(15),
+    drug_name VARCHAR(10),
     drug_id TINYINT UNSIGNED
 );
 
@@ -32,10 +32,10 @@ CREATE TABLE visits (
 	PRIMARY KEY (visit_id),
     visit_id MEDIUMINT UNSIGNED AUTO_INCREMENT,
     participant_id SMALLINT UNSIGNED,
-    visitor_name VARCHAR(100),
+    visit_name VARCHAR(10),
     visit_date DATE,
-    visit_time VARCHAR(100),
-  	result SAMLLINT UNSIGNED,
+    visit_time VARCHAR(10),
+  	result SMALLINT UNSIGNED,
     FOREIGN KEY (participant_id) REFERENCES participants(participant_id) ON UPDATE CASCADE
 );
 
@@ -148,7 +148,7 @@ INSERT INTO participants (participant_dob, sex, age, education, drug_name, drug_
     ("1999-05-24", "male", "23", "graduate", "praluent", "001"),
     ("1996-04-25", "female", "26", "phd", "praluent", "001"),
     ("1987-06-23", "male", "35", "undergraduate", "praluent", "001"),
-	  ("1997-01-11", "female", "25", "undergraduate", "statin", "002"),
+	("1997-01-11", "female", "25", "undergraduate", "statin", "002"),
     ("1998-02-12", "female", "24", "graduate", "statin", "002"),
     ("1999-04-13", "male", "23", "undergraduate", "statin", "002"),
     ("1999-05-14", "male", "23", "graduate", "statin", "002"),
@@ -163,24 +163,20 @@ INSERT INTO visits (participant_id, visit_name, visit_date, visit_time, result)
     (1, 'visit_2', "2017-08-27", '08:06', 75),
     
     (2, 'visit_0',	"2017-04-24", '11:03', 110),
-     (2, 'visit_1',	"2017-04-27", '11:53', 85),
-     (2, 'visit_2',	"2017-04-30", '11:22', 75),
+	(2, 'visit_1',	"2017-04-27", '11:53', 85),
+	(2, 'visit_2',	"2017-04-30", '11:22', 75),
     
     (3, 'visit_0', "2017-05-19", '11:19', 185),
     (3, 'visit_1', "2017-05-22", '11:29', 145),
     (3, 'visit_2', "2017-05-25", '11:49', 95),
     
     (4, 'visit_0', "2016-04-09", '15:38', 155),
-     (4, 'visit_1', "2016-04-12", '15:27', 125),
-     (4, 'visit_2', "2016-04-15", '15:17', 100),
+	(4, 'visit_1', "2016-04-12", '15:27', 125),
+	(4, 'visit_2', "2016-04-15", '15:17', 100),
    
 	(5, 'visit_0', "2021-08-26", '02:05', 144),
     (5, 'visit_1', "2021-08-29", '02:15', 114),
     (5, 'visit_2', "2021-09-01", '02:25', 84),
-    
-    (5, 'visit_0', "2021-08-26", '04:25', 124),
-    (5, 'visit_1', "2021-08-29", '06:15', 94),
-    (5, 'visit_2', "2021-09-01", '05:25', 51),
     
     (6, 'visit_0', "2021-03-26", '14:25', 114),
     (6, 'visit_1', "2021-03-29", '16:15', 88),
@@ -191,16 +187,16 @@ INSERT INTO visits (participant_id, visit_name, visit_date, visit_time, result)
     (7, 'visit_2', "2017-02-27", '08:46', 89),
     
     (8, 'visit_0',	"2017-09-24", '11:13', 140),
-     (8, 'visit_1',	"2017-09-27", '11:23', 104),
-     (8, 'visit_2',	"2017-09-30", '11:32', 85),
+	(8, 'visit_1',	"2017-09-27", '11:23', 104),
+	(8, 'visit_2',	"2017-09-30", '11:32', 85),
     
     (9, 'visit_0', "2017-03-09", '12:19', 166),
     (9, 'visit_1', "2017-03-12", '12:29', 145),
     (9, 'visit_2', "2017-03-15", '12:49', 122),
     
     (10, 'visit_0', "2018-04-09", '16:38', 133),
-     (10, 'visit_1', "2018-04-12", '16:37', 125),
-     (10, 'visit_2', "2018-04-15", '16:17', 110),
+	(10, 'visit_1', "2018-04-12", '16:37', 125),
+	(10, 'visit_2', "2018-04-15", '16:17', 110),
    
 	(11, 'visit_0', "2020-10-26", '02:05', 122),
     (11, 'visit_1', "2020-10-29", '02:15', 94),
@@ -208,11 +204,7 @@ INSERT INTO visits (participant_id, visit_name, visit_date, visit_time, result)
     
     (12, 'visit_0', "2021-01-01", '14:25', 174),
     (12, 'visit_1', "2021-01-04", '16:15', 134),
-    (12, 'visit_2', "2021-01-07", '06:25', 100),
-    
-    (6, 'visit_0', "2021-03-26", '14:25', 114),
-    (6, 'visit_1', "2021-03-29", '16:15', 88),
-    (6, 'visit_2', "2021-03-01", '15:25', 62);
+    (12, 'visit_2', "2021-01-07", '06:25', 100);
 
 # Enter data into adverse_events table
 INSERT INTO adverse_events (ae_type)
@@ -239,19 +231,17 @@ INSERT INTO adverse_events_log (drug_id, visit_id, ae_id,ae_date,ae_duration)
 	('001', 4, 4, "2022-02-19", 25),
 	('001', 5, 5, "2020-06-10", 35),
 	('002', 7, 3, "2021-12-22", 15),
-  ('001', 9, 4, "2022-01-12", 15),
+    ('001', 9, 4, "2022-01-12", 15),
 	('002', 10, 5, "2020-04-13", 32),
 	('002', 13, 3, "2021-10-24", 14),
-  ('001', 12, 10, "2021-05-10", 12),
+    ('001', 12, 10, "2021-05-10", 12),
 	('001', 11, 6, "2017-04-11", 30),
 	('001', 1, 10, "2018-06-22", 8),
-  ('001', 6, 4, "2019-07-19", 05),
+    ('001', 6, 4, "2019-07-19", 05),
 	('002', 15, 1, "2020-08-10", 12),
 	('002', 8, 3, "2021-10-22", 4),
-  ('002', 8, 9, "2021-10-22", 2),
-  ('002', 6, 10, "2021-10-22", 6),
-  ('001', 5, 10, "2021-10-22", 9),
-  ('002', 7, 9, "2021-10-22", 12),
-  ('001', 9, 10, "2021-10-22", 15);
-  
-  
+    ('002', 8, 9, "2021-10-22", 2),
+    ('002', 6, 10, "2021-10-22", 6),
+    ('001', 5, 10, "2021-10-22", 9),
+    ('002', 7, 9, "2021-10-22", 12),
+    ('001', 9, 10, "2021-10-22", 15);
